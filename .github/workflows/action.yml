@@ -1,0 +1,38 @@
+name: action
+run-name: Test & Deploy
+on: [push]
+jobs:
+  quality-control:
+    name: Quality Control
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - run: pip install -r requirements-dev.txt
+      - run: black --check .
+      - run: flake8 .
+      - run: python manage.py check
+      - run: python manage.py makemigrations --check
+
+  deploy:
+    name: Deploy to CodeRed Cloud
+    # Only run the deployment if the previous checks succeeded,
+    # and in the main branch (i.e. not pull requests).
+    if: success() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # CodeRed Cloud command line tool.
+      # See: https://www.codered.cloud/docs/cli/
+      - name: Install cr tool
+        run: |
+          curl -fsSL -o /usr/local/bin/cr "https://www.codered.cloud/cli/cr-linux"
+          chmod +x /usr/local/bin/cr
+      # Run the deployment.
+      - name: Deploy
+        run: cr deploy django-demo
+        with:
+          env:
+            CR_TOKEN: ${{ secrets.cr_token }}
