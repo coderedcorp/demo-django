@@ -1,0 +1,6 @@
+# Install production requirements.
+-r requirements.txt
+
+# Additional dev tooling.
+black
+flake8
