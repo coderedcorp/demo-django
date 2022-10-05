@@ -1,5 +1,4 @@
-name: action
-run-name: Test & Deploy
+name: Test & Deploy
 on: [push]
 jobs:
   quality-control:
@@ -18,9 +17,10 @@ jobs:
 
   deploy:
     name: Deploy to CodeRed Cloud
-    # Only run the deployment if the previous checks succeeded,
-    # and in the main branch (i.e. not pull requests).
-    if: success() && github.ref == 'refs/heads/main'
+    # Only run the deployment if the previous checks succeeded.
+    needs: quality-control
+    # Only run in the main branch (i.e. not pull requests).
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -33,6 +33,5 @@ jobs:
       # Run the deployment.
       - name: Deploy
         run: cr deploy django-demo
-        with:
-          env:
-            CR_TOKEN: ${{ secrets.cr_token }}
+        env:
+          CR_TOKEN: ${{ secrets.cr_token }}
