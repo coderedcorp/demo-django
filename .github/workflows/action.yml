@@ -32,6 +32,6 @@ jobs:
           chmod +x /usr/local/bin/cr
       # Run the deployment.
       - name: Deploy
-        run: cr deploy django-demo
+        run: cr deploy demo-django
         env:
           CR_TOKEN: ${{ secrets.cr_token }}
