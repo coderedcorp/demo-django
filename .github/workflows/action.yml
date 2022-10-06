@@ -1,5 +1,13 @@
 name: Test & Deploy
-on: [push]
+# This action will be run on the `main` branch
+# or on any pull requests going into the `main` branch.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
   quality-control:
     name: Quality Control
