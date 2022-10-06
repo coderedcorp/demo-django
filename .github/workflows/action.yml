@@ -36,7 +36,7 @@ jobs:
       # See: https://www.codered.cloud/docs/cli/
       - name: Install cr tool
         run: |
-          wget -O /usr/local/bin/cr "https://www.codered.cloud/cli/cr-linux"
+          wget -nv -O /usr/local/bin/cr "https://www.codered.cloud/cli/cr-linux"
           chmod +x /usr/local/bin/cr
       # Run the deployment.
       - name: Deploy
