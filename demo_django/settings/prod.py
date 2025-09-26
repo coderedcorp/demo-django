@@ -25,3 +25,5 @@ DATABASES = {
         },
     }
 }
+
+SHOW_BANNER = None
