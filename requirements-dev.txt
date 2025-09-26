@@ -2,5 +2,4 @@
 -r requirements.txt
 
 # Additional dev tooling.
-black
-flake8
+ruff

@@ -10,7 +10,7 @@ SECRET_KEY = os.environ["RANDOM_SECRET_KEY"]
 
 # Built-in email sending service provided by CodeRed Cloud.
 # Change this to a different backend or SMTP server to use your own.
-EMAIL_BACKEND = "django_sendmail_backend.backends.EmailBackend"
+EMAIL_BACKEND = "cr_sendmail.backends.SendmailBackend"
 
 DATABASES = {
     "default": {

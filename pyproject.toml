@@ -1,13 +1,20 @@
+[project]
+name = "demo-django"
+version = "0.1.0"
+requires-python = ">=3.13"
+
 [tool.black]
 line-length = 80
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.tox
-  | \.venv
-  | _build
-  | migrations
-)/
-'''
+extend-exclude = ["migrations"]
+
+[tool.ruff]
+extend-exclude = ["migrations"]
+line-length = 80
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort]
+case-sensitive = false
+force-single-line = true
+lines-after-imports = 2
