@@ -32,12 +32,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
       # CodeRed Cloud command line tool.
       # See: https://www.codered.cloud/docs/cli/
       - name: Install cr tool
         run: |
-          wget -nv -O /usr/local/bin/cr "https://www.codered.cloud/cli/cr-linux"
-          chmod +x /usr/local/bin/cr
+          pip install -r requirements.txt
+          pip install cr
       # Run the deployment.
       - name: Deploy
         run: cr deploy demo-django
